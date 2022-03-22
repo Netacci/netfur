@@ -1,8 +1,10 @@
 import React from 'react';
 import { Icon } from '@iconify/react';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Navbar = () => {
+  const state = useSelector((state) => state.handleCart);
   return (
     <>
       <div className='container px-36'>
@@ -71,7 +73,7 @@ const Navbar = () => {
 
             <NavLink className='cursor-pointer relative' to='/cart'>
               <Icon icon='bytesize:cart' />
-              {/* <p className='text-xs absolute -top-2 left-3'>0</p> */}
+              <p className='text-xs absolute -top-2 left-3'>{state.length}</p>
             </NavLink>
           </div>
         </nav>

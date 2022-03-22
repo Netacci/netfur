@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Skeleton from 'react-loading-skeleton';
 import { NavLink } from 'react-router-dom';
+
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 const Products = () => {
   const [data, setData] = useState([]);
@@ -9,21 +11,21 @@ const Products = () => {
   const [isActive, setIsActive] = useState('0');
 
   const [loading, setLoading] = useState(false);
-  const [mountProduct, setMountProduct] = useState(true);
+  //   const [mountProduct, setMountProduct] = useState(true);
   //   let ProductMounted = true;
   useEffect(() => {
     const getProducts = async () => {
       setLoading(true);
       const res = await axios.get('http://fakestoreapi.com/products');
-      if (mountProduct) {
-        setData(await res.data);
-        setFilter(await res.data);
-        setLoading(false);
-        console.log(data);
-        console.log(filter);
-        console.log(loading);
-      }
-      return setMountProduct(false);
+      //   if (mountProduct) {
+      setData(await res.data);
+      setFilter(await res.data);
+      setLoading(false);
+      console.log(data);
+      console.log(filter);
+      console.log(loading);
+      //   }
+      //   return setMountProduct(false);
       //   return () => {
       //     ProductMounted = false;
       //   };
@@ -37,19 +39,16 @@ const Products = () => {
   const Loading = () => {
     return (
       <>
-        <div className='flex flex-wrap justify-center mx-auto '>
-          <div className='h-72 mr-9 mb-5 w-3/12 bg-gray-100 rounded-lg shadow-md'>
-            <Skeleton />
+        <div className='flex flex-wrap justify-center mx-auto mt-4 '>
+          <div className=' w-3/12 mr-3 '>
+            <Skeleton height={350} />
           </div>
-          <div className=' mr-9 mb-5 w-3/12 bg-gray-100 rounded-lg shadow-md '>
-            <Skeleton />
+          <div className='  w-3/12 mr-3 '>
+            <Skeleton height={350} />
           </div>
-          <div className='mr-9 mb-5 w-3/12 bg-gray-100    rounded-lg shadow-md'>
-            <Skeleton />
+          <div className='w-3/12 mr-3'>
+            <Skeleton height={350} />
           </div>
-          {/* <Skeleton height={350} />
-          <Skeleton height={350} />
-          <Skeleton height={350} /> */}
         </div>
       </>
     );
@@ -131,7 +130,8 @@ const Products = () => {
         <div className='flex flex-wrap flex-row justify-center mx-auto'>
           {filter.map((product) => {
             return (
-              <div
+              <NavLink
+                to={`/products/${product.id}`}
                 className='max-w-sm mr-9 mb-5 bg-white rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700'
                 key={product.id}
               >
@@ -195,15 +195,12 @@ const Products = () => {
                     <span className='text-3xl font-bold text-gray-900 dark:text-white'>
                       ${product.price}
                     </span>
-                    <a
-                      href='#y'
-                      className='text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-teal-600 dark:hover:bg-teal-700 dark:focus:ring-teal-800'
-                    >
-                      Add to cart
-                    </a>
+                    <button className='text-white bg-teal-700 hover:bg-teal-800 focus:ring-4 focus:ring-teal-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-teal-600 dark:hover:bg-teal-700 dark:focus:ring-teal-800'>
+                      View Product
+                    </button>
                   </div>
                 </div>
-              </div>
+              </NavLink>
             );
           })}
         </div>
